@@ -1,0 +1,16 @@
+#alienImage,#rocketImage,#shotImage{
+    display:none;
+}
+#canvas{
+    border:5px solid rgb(165,107,11);
+	background-repeat: no-repeat;  
+    background-color: rgb(46,26,51); 
+    margin:1em;
+}
+.container{
+    display: flex;
+    flex-direction: row;
+}
+.right{
+    margin:2rem;
+}
