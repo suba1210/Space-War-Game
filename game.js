@@ -3,6 +3,26 @@ let scoreLive=0;
 let alienImage=document.getElementById("alienImage");
 let rocketImage=document.getElementById("rocketImage");
 let shotImage=document.getElementById("shotImage");
+let powerImage=document.getElementById("powerImage");
+let count=0;
+function powerClass(x,y,speed){
+	this.x = x;
+	this.y = y;
+	this.w = 50;
+	this.h = 50;
+	this.speed = speed;
+	this.image = function(){
+		ctx.drawImage(powerImage,this.x,this.y,this.w,this.h);
+	}
+	this.update = function(){
+	this.x = this.x + this.speed;
+		if(this.x >= W-this.w || this.x<=0){
+			this.speed *= -1;
+		}
+		this.y++;
+	}
+}
+
 function alienClass(x,y,speed){
 	this.x = x;
 	this.y = y;
@@ -72,6 +92,9 @@ spaceShip = {
 aliensArray = [];
 let e = new alienClass(10,20,1);
 aliensArray.push(e);
+powerArray=[];
+let p= new powerClass(100,50,1);
+powerArray.push(p);
 }
 
 liveScoreSelect.innerHTML=scoreLive;
@@ -86,6 +109,10 @@ function image(){
 	for(let i=0;i<aliensArray.length;i++)
 	{
 		aliensArray[i].image();
+	}
+	for(let i=0;i<powerArray.length;i++)
+	{
+		powerArray[i].image();
 	}
 }
 
@@ -108,11 +135,38 @@ function update(){
 	{
 		aliensArray[i].update();
 	}
+	for(let i=0;i<powerArray.length;i++)
+	{
+		powerArray[i].update();
+	}
 	let randNum =  Math.random();
-	if(randNum<0.01){
-		let x = Math.floor(Math.random()*(W-50));
-		let y = Math.floor(Math.random()*10);
-        let speed = 1;
+	if(randNum<=0.01){
+		let x, y , speed;
+		let anoRand= Math.random();
+		if(anoRand<0.2)
+		{
+			x = Math.floor(Math.random()*(W-50));
+			y = Math.floor(Math.random()*10);
+			speed = 1;
+			let negative = Math.random();
+			if(negative<0.5){
+				speed = -speed;
+			}
+			let e = new powerClass(x,y,speed);
+			powerArray.push(e);
+		}
+		
+		if(count==0){
+			x = Math.floor(Math.random()*(W-50));
+			y = Math.floor(Math.random()*10);
+			speed = 1;
+		}
+		if(count==1){
+			x = Math.floor(Math.random()*(W-50));
+			y = Math.floor(Math.random()*40);
+			speed = 8;
+		}
+
 		let negative = Math.random();
 		if(negative<0.5){
 			speed = -speed;
@@ -120,8 +174,35 @@ function update(){
 		let e = new alienClass(x,y,speed);
 		aliensArray.push(e);
 	}
+	else if(randNum>0.01 && randNum<=0.03){
+		
+		if(count==1){
+			console.log("I'm in mission 2")
+			let x, y , speed;
+			x = Math.floor(Math.random()*(W-50));
+			y = Math.floor(Math.random()*40);
+			speed = 8;
+
+		let negative = Math.random();
+		if(negative<0.5){
+			speed = -speed;
+		}
+		let e = new alienClass(x,y,speed);
+		aliensArray.push(e);
+		}
+	}
+	for(let i=0;i<powerArray.length;i++)
+	{
+		if(crash(spaceShip,powerArray[i])){
+			scoreLive+=30;
+			liveScoreSelect.innerHTML=scoreLive;
+			let k = powerArray.indexOf(powerArray[i]);
+			powerArray.splice(k,1);
+		}
+	}
 	for(let i=0;i<aliensArray.length;i++)
 	{
+
 			if(crash(spaceShip,aliensArray[i])){
 				
 			if(localStorage.getItem("spaceHigh") === null){
@@ -133,8 +214,20 @@ function update(){
             		window.localStorage.setItem("spaceHigh",JSON.stringify(scoreLive));
         		}  
 			}
-			alert("Game over. Press OK to restart!");
-			location.reload();
+			document.querySelector("canvas").style.opacity="0.5";
+			let btn = document.createElement("BUTTON");
+			btn.setAttribute("id", "playAgainButton");
+			document.querySelector(".left").appendChild(btn);
+			btn.innerHTML ="&nbsp &nbsp"+ "MISSION FAILED!" + '&nbsp &nbsp &nbsp ' +  "START WAR AGAIN!"+"&nbsp &nbsp";
+			btn.addEventListener("click",function(){
+				location.reload();
+			})
+			if(count==0){
+				clearInterval(timerRun);
+			}
+			if(count==1){
+				clearInterval(timerRun1);
+			}
 			gameFinish = true;
 
 		}
@@ -163,10 +256,8 @@ function updateGameArea(){
 	if(gameFinish == false){
 		window.requestAnimationFrame(updateGameArea);
 	}
-	else{
-		startGame();
-	}
 }
+
 
 function startGame(){
 	myGameArea();
@@ -226,34 +317,61 @@ function shootAlien(){
 	spaceShip.collide();
 }
 
-let c=250;
-let k=250;
+let c=100;
+let f=100;
 let timerSelect=document.getElementById("timerId");
 
 function timerFunc1()
 {
-	k=k-1;
-	if(k<250)
+	count=1;
+	f=f-1;
+	if(f<100)
 	{
-		timerSelect.innerHTML=k;
+		timerSelect.innerHTML=f;
 	}
-	if(k<1){
-		clearInterval(timerRun1);
-		alert("mis 2 stoped");
+	if(f<1){
+		if(localStorage.getItem("spaceHigh") === null){
+			window.localStorage.setItem("spaceHigh",JSON.stringify(scoreLive));
+		}
+		else{
+			if(parseFloat(window.localStorage.getItem("spaceHigh"))<scoreLive)
+			{
+				window.localStorage.setItem("spaceHigh",JSON.stringify(scoreLive));
+			}  
+		}
+		document.querySelector("canvas").style.opacity="0.5";
+		let btn = document.createElement("BUTTON");
+		btn.setAttribute("id", "playAgainButton");
+		document.querySelector(".left").appendChild(btn);
+		btn.innerHTML = "Success!✨ You have saved your SpaceShip from WhiteSpikes ✨"+`<br>`+"Click to Start War again"
+		btn.addEventListener("click",function(){
+			location.reload();
+		})
+		if(count==0){
+			clearInterval(timerRun);
+		}
+		if(count==1){
+			clearInterval(timerRun1);
+		}
+		gameFinish = true;
+		
 	}
 }
 
 function timerFunc(){
 	c=c-1;
-	if(c<250){
+	if(c<100){
 		timerSelect.innerHTML=c;
 	}
 	if(c<1){
+		scoreLive+=100;
+		liveScoreSelect.innerHTML=scoreLive;
 		clearInterval(timerRun);
-		let timerRun1=setInterval("timerFunc1()",1000);
-		alert("stoped");
+		timerRun1=setInterval("timerFunc1()",1000);
+		alert("Congrats!🥳 You are advanced to Mission 2✨ And also, You are awarded with 100 Bonus Points 🌟 Click 'OK' to continue");
 		document.getElementById("missionNum").innerHTML=2;
 	}
 }
 
 let timerRun=setInterval("timerFunc()",1000);
+let timerRun1;

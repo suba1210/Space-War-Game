@@ -25,7 +25,7 @@
     <div class="right">
         <div class="scoreClass">
         <button class="missionBar"><span>MISSION : <span id="missionNum"> 1</span></span></button><br>
-        <button class="missionBar"><span>TIMER :<span id="timerId"> 250</span></span></button><br>
+        <button id="timerBar" class="missionBar"><span>TIMER :<span id="timerId"> 100</span></span></button><br>
         <div class="scoreBar">
         <span style="font-size: 35px;">Live Score: <span id="liveScore"></span></span><br>
         <span style="font-size: 35px;">High Score:<span id="highScore"></span></span>
@@ -38,14 +38,15 @@
         <button class="fourSide" onclick="moveRight()">RIGHT</button>
         </div>
         <button class="fourSide" onclick="moveDown()">DOWN</button>
+        </div>        
         </div>
-        
-        </div>
+        <a style="text-decoration: none;" href="index.html"><button style="width: fit-content;cursor:pointer" class="missionBar"> BACK TO HOME PAGE </button></a>
     </div>
     </div>
     <img src="alien.png" alt="alien" id="alienImage">
     <img src="rocket.png" alt="rocket" id="rocketImage">
     <img src="shot1.png" alt="shotImage" id="shotImage">
+    <img src="powerUp.png" alt="powerImage" id="powerImage">
     <script src="game.js"></script>
 </body>
 </html>
