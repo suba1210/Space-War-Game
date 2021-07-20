@@ -31,18 +31,23 @@ function alienClass(x,y,speed,type){
 	this.h = 50;
 	this.speed = speed;
 	this.type = type;
-	if(this.type=="alien1")
-	{
-		this.image = function(){
+	this.image=function(){
+		if(this.type=="alien1")
+		{
+			// this.image = function(){
+			// 	ctx.drawImage(alienImage,this.x,this.y,this.w,this.h);
+			// }
 			ctx.drawImage(alienImage,this.x,this.y,this.w,this.h);
 		}
-	}
-	if(this.type=="alien2")
-	{
-		this.image = function(){
+		if(this.type=="alien2")
+		{
+			// this.image = function(){
+			// 	ctx.drawImage(alienImage2,this.x,this.y,this.w,this.h);
+			// }
 			ctx.drawImage(alienImage2,this.x,this.y,this.w,this.h);
 		}
 	}
+
 	this.update = function(){
 	this.x = this.x + this.speed;
 		if(this.x >= W-this.w || this.x<=0){
@@ -91,7 +96,12 @@ spaceShip = {
 			for(let i=0;i<aliensArray.length;i++)
 			{
 				if(crashWithBullet(b,aliensArray[i])){
-				scoreLive+=3;
+				if(count==0){
+					scoreLive+=3;
+				}
+				if(count==1){
+					scoreLive+=1;
+				}
 				liveScoreSelect.innerHTML=scoreLive;
 				let k = aliensArray.indexOf(aliensArray[i]);
 				aliensArray.splice(k,1);
@@ -225,21 +235,40 @@ function update(){
 		
 	}
 	else if(randNum>0.01 && randNum<=0.03){
-		
-		if(count==1){
-			console.log("I'm in mission 2")
-			let x, y , speed;
-			x = Math.floor(Math.random()*(W-50));
-			y = Math.floor(Math.random()*40);
-			speed = 8;
+		let random1=Math.random();
+		if(random1<=0.5)
+		{
+			if(count==1){
+				let x, y , speed;
+				x = Math.floor(Math.random()*(W-50));
+				y = Math.floor(Math.random()*40);
+				speed = 8;
+	
+			let negative = Math.random();
+			if(negative<0.5){
+				speed = -speed;
+			}
+			let e = new alienClass(x,y,speed,"alien1");
+			aliensArray.push(e);
+			}
+		}
+		if(random1>0.5){
+			if(count==1){
+			
+				let x, y , speed;
+				x = Math.floor(Math.random()*(W-50));
+				y = Math.floor(Math.random()*40);
+				speed = 8;
+	
+			let negative = Math.random();
+			if(negative<0.5){
+				speed = -speed;
+			}
+			let e = new alienClass(x,y,speed,"alien1");
+			aliensArray.push(e);
+			}
+		}
 
-		let negative = Math.random();
-		if(negative<0.5){
-			speed = -speed;
-		}
-		let e = new alienClass(x,y,speed);
-		aliensArray.push(e);
-		}
 	}
 	for(let i=0;i<powerArray.length;i++)
 	{
@@ -293,7 +322,6 @@ function crash(spaceShip,alien){
 function crashWithBullet(bullet,alien){
 	if((alien.y)<bullet.y)
 	{
-		console.log("hello");
 		let checkx = Math.abs(bullet.x - alien.x)<= Math.max(bullet.w,alien.w);
 		return checkx ;
 	}
