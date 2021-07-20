@@ -4,15 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300&display=swap" rel="stylesheet">
     <title>Game File</title>
     <link rel="stylesheet" href="game.css">
-</head>
+</head>   
 <body>
     <div class="container">
     <div class="left">
         <canvas id="canvas" width="900" height="570"></canvas>
     </div>
     <div class="right">
+        <div class="scoreClass">
+        <span style="font-size: 35px;">Live Score: <span id="liveScore"></span></span><br>
+        <span style="font-size: 35px;">High Score:<span id="highScore"></span></span><br><br>
+        <div class="buttons">
+        <button class="fourSide" onclick="moveUp()">UP</button>
+        <div>
+        <button class="fourSide" onclick="moveLeft()">LEFT</button>
+        <button class="fourSide" onclick="shootAlien()">SHOOT</button>
+        <button class="fourSide" onclick="moveRight()">RIGHT</button>
+        </div>
+        <button class="fourSide" onclick="moveDown()">DOWN</button>
+        </div>
+        
+        </div>
     </div>
     </div>
     <img src="alien.png" alt="alien" id="alienImage">

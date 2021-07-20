@@ -1,3 +1,5 @@
+let liveScoreSelect=document.getElementById("liveScore");
+let scoreLive=0;
 let alienImage=document.getElementById("alienImage");
 let rocketImage=document.getElementById("rocketImage");
 let shotImage=document.getElementById("shotImage");
@@ -58,6 +60,8 @@ spaceShip = {
 			for(let i=0;i<aliensArray.length;i++)
 			{
 				if(crashWithBullet(b,aliensArray[i])){
+				scoreLive+=3;
+				liveScoreSelect.innerHTML=scoreLive;
 				let k = aliensArray.indexOf(aliensArray[i]);
 				aliensArray.splice(k,1);
 				}
@@ -69,6 +73,8 @@ aliensArray = [];
 let e = new alienClass(10,20,1);
 aliensArray.push(e);
 }
+
+liveScoreSelect.innerHTML=scoreLive;
 
 function image(){
 	ctx.clearRect(0,0,W,H);
@@ -82,6 +88,17 @@ function image(){
 		aliensArray[i].image();
 	}
 }
+
+let highScoreSelect = document.getElementById("highScore");
+
+if(localStorage.getItem("spaceHigh")===null)
+{
+	highScoreSelect.innerHTML=0;
+}
+else{
+	highScoreSelect.innerHTML=`${localStorage.getItem("spaceHigh")}`
+}
+
 function update(){
 	for(let i=0;i<spaceShip.bullets.length;i++)
 	{
@@ -106,8 +123,20 @@ function update(){
 	for(let i=0;i<aliensArray.length;i++)
 	{
 			if(crash(spaceShip,aliensArray[i])){
+				
+			if(localStorage.getItem("spaceHigh") === null){
+				window.localStorage.setItem("spaceHigh",JSON.stringify(scoreLive));
+			}
+			else{
+				if(parseFloat(window.localStorage.getItem("spaceHigh"))<scoreLive)
+        		{
+            		window.localStorage.setItem("spaceHigh",JSON.stringify(scoreLive));
+        		}  
+			}
 			alert("Game over. Press OK to restart!");
+			location.reload();
 			gameFinish = true;
+
 		}
 	}
 }
@@ -119,8 +148,12 @@ function crash(spaceShip,alien){
 }
 
 function crashWithBullet(bullet,alien){
-	let checkx = Math.abs(bullet.x - alien.x)<= Math.max(bullet.w,alien.w);
-	return checkx;
+	if((alien.y)<bullet.y)
+	{
+		console.log("hello");
+		let checkx = Math.abs(bullet.x - alien.x)<= Math.max(bullet.w,alien.w);
+		return checkx ;
+	}
 }
 
 function updateGameArea(){
@@ -143,33 +176,52 @@ startGame();
 
 function keyPress(e){
 	if(e.key==" "){
-		spaceShip.collide();
+		shootAlien();
 	}
 	if(e.key=="ArrowLeft"){
-		spaceShip.x = spaceShip.x - spaceShip.speed;
-		if(spaceShip.x<=0){
-			spaceShip.x= 0;
-		}
+		moveLeft();
 	}
 	if(e.key=="ArrowRight"){
-		spaceShip.x = spaceShip.x + spaceShip.speed;
-		if(spaceShip.x >= W-spaceShip.w){
-			spaceShip.x = W-spaceShip.w;
-		}
+		moveRight();
 	}
     if(e.key=="ArrowUp")
     {
-        spaceShip.y=spaceShip.y-spaceShip.speed;
-        if(spaceShip.y<=0){
-			spaceShip.y= 0;
-		}
+		moveUp();
     }
     if(e.key=="ArrowDown")
     {
-        spaceShip.y=spaceShip.y+spaceShip.speed;
-        if(spaceShip.y>=H-spaceShip.h){
-			spaceShip.y = H-spaceShip.h;
-		}
-    }
+		moveDown();
+	}
+
 }
 document.addEventListener('keydown', keyPress);
+
+
+function moveRight(){
+	spaceShip.x = spaceShip.x + spaceShip.speed;
+		if(spaceShip.x >= W-spaceShip.w){
+			spaceShip.x = W-spaceShip.w;
+		}
+}
+function moveLeft(){
+	spaceShip.x = spaceShip.x - spaceShip.speed;
+	if(spaceShip.x<=0){
+		spaceShip.x= 0;
+	}	
+}
+function moveUp(){
+	spaceShip.y=spaceShip.y-spaceShip.speed;
+	if(spaceShip.y<=0){
+		spaceShip.y= 0;
+	}	
+}
+function moveDown(){
+	spaceShip.y=spaceShip.y+spaceShip.speed;
+	if(spaceShip.y>=H-spaceShip.h){
+		spaceShip.y = H-spaceShip.h;
+	}
+}
+
+function shootAlien(){
+	spaceShip.collide();
+}
