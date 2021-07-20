@@ -1,6 +1,7 @@
 let liveScoreSelect=document.getElementById("liveScore");
 let scoreLive=0;
 let alienImage=document.getElementById("alienImage");
+let alienImage2=document.getElementById("alienImage2");
 let rocketImage=document.getElementById("rocketImage");
 let shotImage=document.getElementById("shotImage");
 let powerImage=document.getElementById("powerImage");
@@ -23,14 +24,24 @@ function powerClass(x,y,speed){
 	}
 }
 
-function alienClass(x,y,speed){
+function alienClass(x,y,speed,type){
 	this.x = x;
 	this.y = y;
 	this.w = 50;
 	this.h = 50;
 	this.speed = speed;
-	this.image = function(){
-		ctx.drawImage(alienImage,this.x,this.y,this.w,this.h);
+	this.type = type;
+	if(this.type=="alien1")
+	{
+		this.image = function(){
+			ctx.drawImage(alienImage,this.x,this.y,this.w,this.h);
+		}
+	}
+	if(this.type=="alien2")
+	{
+		this.image = function(){
+			ctx.drawImage(alienImage2,this.x,this.y,this.w,this.h);
+		}
 	}
 	this.update = function(){
 	this.x = this.x + this.speed;
@@ -90,7 +101,7 @@ spaceShip = {
 	}
 };
 aliensArray = [];
-let e = new alienClass(10,20,1);
+let e = new alienClass(10,20,1,"alien1");
 aliensArray.push(e);
 powerArray=[];
 let p= new powerClass(100,50,1);
@@ -141,7 +152,10 @@ function update(){
 	}
 	let randNum =  Math.random();
 	if(randNum<=0.01){
-		let x, y , speed;
+		let random=Math.random();
+		if(random<0.5)
+		{
+			let x, y , speed;
 		let anoRand= Math.random();
 		if(anoRand<0.2)
 		{
@@ -171,8 +185,44 @@ function update(){
 		if(negative<0.5){
 			speed = -speed;
 		}
-		let e = new alienClass(x,y,speed);
+		let e = new alienClass(x,y,speed,"alien1");
 		aliensArray.push(e);
+		}
+		if(random>0.5){
+			let x, y , speed;
+			let anoRand= Math.random();
+			if(anoRand<0.2)
+			{
+				x = Math.floor(Math.random()*(W-50));
+				y = Math.floor(Math.random()*10);
+				speed = 1;
+				let negative = Math.random();
+				if(negative<0.5){
+					speed = -speed;
+				}
+				let e = new powerClass(x,y,speed);
+				powerArray.push(e);
+			}
+			
+			if(count==0){
+				x = Math.floor(Math.random()*(W-50));
+				y = Math.floor(Math.random()*10);
+				speed = 1;
+			}
+			if(count==1){
+				x = Math.floor(Math.random()*(W-50));
+				y = Math.floor(Math.random()*40);
+				speed = 8;
+			}
+	
+			let negative = Math.random();
+			if(negative<0.5){
+				speed = -speed;
+			}
+			let e = new alienClass(x,y,speed,"alien2");
+			aliensArray.push(e);
+		}
+		
 	}
 	else if(randNum>0.01 && randNum<=0.03){
 		
