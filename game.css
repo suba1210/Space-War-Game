@@ -40,4 +40,24 @@ body {
     border-radius: 5px;
     font-weight:bolder;  
     color:thistle;
+    font-family: 'Rakkas', cursive;
+}
+.missionBar{
+    font-size: 20px;
+    border:2px solid whitesmoke;
+    padding:10px;
+    background-color:rgb(43, 57, 136);
+    border-radius: 5px;
+    color:thistle;
+    font-family: 'Rakkas', cursive;
+    width:200px;
+    display:grid;
+    margin:auto;
+}
+.scoreBar{
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }

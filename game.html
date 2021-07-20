@@ -7,6 +7,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rakkas&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    
     <title>Game File</title>
     <link rel="stylesheet" href="game.css">
 </head>   
@@ -17,8 +24,12 @@
     </div>
     <div class="right">
         <div class="scoreClass">
+        <button class="missionBar"><span>MISSION : <span id="missionNum"> 1</span></span></button><br>
+        <button class="missionBar"><span>TIMER :<span id="timerId"> 250</span></span></button><br>
+        <div class="scoreBar">
         <span style="font-size: 35px;">Live Score: <span id="liveScore"></span></span><br>
-        <span style="font-size: 35px;">High Score:<span id="highScore"></span></span><br><br>
+        <span style="font-size: 35px;">High Score:<span id="highScore"></span></span>
+        </div>
         <div class="buttons">
         <button class="fourSide" onclick="moveUp()">UP</button>
         <div>

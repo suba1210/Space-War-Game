@@ -225,3 +225,35 @@ function moveDown(){
 function shootAlien(){
 	spaceShip.collide();
 }
+
+let c=250;
+let k=250;
+let timerSelect=document.getElementById("timerId");
+
+function timerFunc1()
+{
+	k=k-1;
+	if(k<250)
+	{
+		timerSelect.innerHTML=k;
+	}
+	if(k<1){
+		clearInterval(timerRun1);
+		alert("mis 2 stoped");
+	}
+}
+
+function timerFunc(){
+	c=c-1;
+	if(c<250){
+		timerSelect.innerHTML=c;
+	}
+	if(c<1){
+		clearInterval(timerRun);
+		let timerRun1=setInterval("timerFunc1()",1000);
+		alert("stoped");
+		document.getElementById("missionNum").innerHTML=2;
+	}
+}
+
+let timerRun=setInterval("timerFunc()",1000);
