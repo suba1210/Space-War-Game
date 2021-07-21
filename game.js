@@ -409,15 +409,15 @@ function shootAlien(){
 	spaceShip.collide();
 }
 
-let c=10;
-let f=10;
+let c=100;
+let f=100;
 let timerSelect=document.getElementById("timerId");
 
 function timerFunc1()
 {
 	count=1;
 	f=f-1;
-	if(f<10)
+	if(f<100)
 	{
 		timerSelect.innerHTML=f;
 	}
@@ -453,7 +453,7 @@ function timerFunc1()
 
 function timerFunc(){
 	c=c-1;
-	if(c<10){
+	if(c<100){
 		timerSelect.innerHTML=c;
 	}
 	if(c<1){
