@@ -14,6 +14,8 @@ Hacker mode:
 - [ ] Have the feature for bonus powers for the spaceship once a certain score has been obtained on the scoreboard.
 - [x] Think about how you can add bonuses or special levels to the game and how will be the scoring for such levels.
 
+[Click here to play the game!](https://suba1210.github.io/Space-War-Game/)
+
 
 
 
