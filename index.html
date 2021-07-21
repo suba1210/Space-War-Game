@@ -41,9 +41,41 @@ body {
   background-color:rgb(1, 19, 121);
   box-shadow: 0 4px 8px 0 rgba(4, 83, 253, 0.2), 0 6px 20px 0 rgba(2, 81, 252, 0.2);
 }
+.instruction{
+  color:rgb(226, 227, 248);
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.inst>li{
+  padding:1rem;
+}
 </style>
 <body>
     <h1 class="topHead">SPACE WAR</h1><br>
-    <center><a href="game.html"><button class="start">START THE WAR</button></a></center>
+    <center><a href="game.html"><button class="start">START THE WAR</button></a></center><br><br>
+    <h3 class="topHead" style="font-size: 30px;">INSTRUCTIONS FOR THE WAR</h3>
+    
+    <div class="instruction">
+    <ul class="inst" >
+      <li>You are able to move the Space-Ship all four directions.
+        <ul class="inst">
+          <li>Arrow Up : Move the mission Up</li>
+          <li>Arrow Down : Move the mission Down</li>
+          <li>Arrow Right : Move the mission Right</li>
+          <li>Arrow Left : Move the mission Left</li>
+          <li>Space Bar: Release Bullet</li>
+        </ul>
+      </li>
+      <li>You can also use the buttons given in the Game Area for moving the Space-Ship</li>
+      <li>For the first 100 seconds your SpaceShip will be in Mission1</li>
+      <li>For the next 100 seconds your SpaceShip will be advanced to Mission2</li>
+      <li>In Mission 1 , You will gain 3 points for each Shoot of the enemy</li>
+      <li>In Mission 2, You will gain only one point for each Shoot of the enemy</li>
+      <li>You will gain extra 30 points, when you manage to catch each powerUps.</li>
+
+    </ul>
+  </div>
 </body>
 </html>

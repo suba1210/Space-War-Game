@@ -6,6 +6,18 @@ let rocketImage=document.getElementById("rocketImage");
 let shotImage=document.getElementById("shotImage");
 let powerImage=document.getElementById("powerImage");
 let count=0;
+let gunShotMusic = document.getElementById("alienDead");
+function music1(){
+	gunShotMusic.play();
+}
+let lossMusic = document.getElementById("gameLoss");
+function music2(){
+	lossMusic.play();
+}
+let winMusic=document.getElementById("gameWin");
+function music3(){
+	winMusic.play();
+}
 function powerClass(x,y,speed){
 	this.x = x;
 	this.y = y;
@@ -102,6 +114,7 @@ spaceShip = {
 				if(count==1){
 					scoreLive+=1;
 				}
+				music1();
 				liveScoreSelect.innerHTML=scoreLive;
 				let k = aliensArray.indexOf(aliensArray[i]);
 				aliensArray.splice(k,1);
@@ -283,7 +296,8 @@ function update(){
 	{
 
 			if(crash(spaceShip,aliensArray[i])){
-				
+
+			music2();
 			if(localStorage.getItem("spaceHigh") === null){
 				window.localStorage.setItem("spaceHigh",JSON.stringify(scoreLive));
 			}
@@ -395,15 +409,15 @@ function shootAlien(){
 	spaceShip.collide();
 }
 
-let c=100;
-let f=100;
+let c=10;
+let f=10;
 let timerSelect=document.getElementById("timerId");
 
 function timerFunc1()
 {
 	count=1;
 	f=f-1;
-	if(f<100)
+	if(f<10)
 	{
 		timerSelect.innerHTML=f;
 	}
@@ -417,11 +431,12 @@ function timerFunc1()
 				window.localStorage.setItem("spaceHigh",JSON.stringify(scoreLive));
 			}  
 		}
+		music3();
 		document.querySelector("canvas").style.opacity="0.5";
 		let btn = document.createElement("BUTTON");
 		btn.setAttribute("id", "playAgainButton");
 		document.querySelector(".left").appendChild(btn);
-		btn.innerHTML = "Success!✨ You have saved your SpaceShip from WhiteSpikes ✨"+`<br>`+"Click to Start War again"
+		btn.innerHTML = "Success!✨ You have saved your SpaceShip from WhiteSpikes ✨"+`<br>`+"Click here to Start War again!"
 		btn.addEventListener("click",function(){
 			location.reload();
 		})
@@ -438,7 +453,7 @@ function timerFunc1()
 
 function timerFunc(){
 	c=c-1;
-	if(c<100){
+	if(c<10){
 		timerSelect.innerHTML=c;
 	}
 	if(c<1){
