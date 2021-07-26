@@ -14,6 +14,14 @@ Hacker mode:
 - [ ] Have the feature for bonus powers for the spaceship once a certain score has been obtained on the scoreboard.
 - [x] Think about how you can add bonuses or special levels to the game and how will be the scoring for such levels.
 
+Git:
+- [x] Use git bash or command-line interface instead of git website for making commits.
+- [x] Work on a new repository for the project.
+- [x] Include meaningful commit messages for each commit made in the repository.
+- [x] For the basic task work on the main branch.
+- [x] Once done with the basic task, create a separate branch called hacker mode from the main branch and continue working on that branch.
+- [x] Have a proper Readme consisting of the given sub-tasks as a checklist and update them accordingly.
+
 [Click here to play the game!](https://suba1210.github.io/Space-War-Game/)
 
 
