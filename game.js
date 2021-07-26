@@ -46,16 +46,10 @@ function alienClass(x,y,speed,type){
 	this.image=function(){
 		if(this.type=="alien1")
 		{
-			// this.image = function(){
-			// 	ctx.drawImage(alienImage,this.x,this.y,this.w,this.h);
-			// }
 			ctx.drawImage(alienImage,this.x,this.y,this.w,this.h);
 		}
 		if(this.type=="alien2")
 		{
-			// this.image = function(){
-			// 	ctx.drawImage(alienImage2,this.x,this.y,this.w,this.h);
-			// }
 			ctx.drawImage(alienImage2,this.x,this.y,this.w,this.h);
 		}
 	}
